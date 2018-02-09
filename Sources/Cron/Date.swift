@@ -37,7 +37,7 @@ public extension Cron.CronDate {
     var date: Foundation.Date? {
         let d = NSDateComponents()
         d.calendar = NSCalendar.current
-        d.timeZone = TimeZone.current;
+        d.timeZone = TimeZone(identifier: "Europe/Moscow");
         d.year   = self.year
         d.month  = self.month
         d.day    = self.day
