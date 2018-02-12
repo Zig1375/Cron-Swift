@@ -20,7 +20,6 @@ public struct CronJob {
         self.pattern = try DatePattern(pattern, hash: hash)
         self.job = job
 
-        print(pattern)
         start()
     }
 
@@ -34,7 +33,6 @@ public struct CronJob {
         zThread() {
             while let next = self.pattern.next()?.date {
                 let interval = UInt32(next.timeIntervalSinceNow)
-                print(interval)
                 sleep(interval);
                 self.job()
             };
