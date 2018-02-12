@@ -19,7 +19,8 @@ public struct CronDate {
 
 public extension Cron.CronDate {
     init(date: Foundation.Date) {
-        let calendar = Calendar.current
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(identifier: "Europe/Moscow")!
         self.year   = calendar.component(.year, from: date)
         self.month  = calendar.component(.month, from: date)
         self.day    = calendar.component(.day, from: date)
