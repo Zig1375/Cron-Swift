@@ -32,9 +32,13 @@ public struct CronJob {
 
         zThread() {
             while let next = self.pattern.next()?.date {
-                let interval = UInt32(next.timeIntervalSinceNow)
-                sleep(interval);
-                self.job()
+                let interval = UInt32(next.timeIntervalSinceNow);
+                if (interval == 0) {
+                    sleep(1);
+                } else {
+                    sleep(interval);
+                    self.job();
+                }
             };
         }.start();
     }
