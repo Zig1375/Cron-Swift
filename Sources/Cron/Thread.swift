@@ -19,7 +19,7 @@ class zThread: NSObject
         self.thread?.start();
     }
 
-    func invoke() {
+    @objc func invoke() {
         self.callback?()
 
         // Discard callback and timer.
