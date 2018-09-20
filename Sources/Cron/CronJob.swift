@@ -13,26 +13,10 @@ public struct CronJob {
         start()
     }
 
-    public init(pattern: String, queue: DispatchQueue, hash: Int64 = 0, job: @escaping () -> Void) throws {
-        self.pattern = try DatePattern(pattern, hash: hash)
-        self.job = job
-        self.queue = queue
-
-        start()
-    }
-
     public init(pattern: DatePattern, hash: Int64 = 0, job: @escaping () -> Void) {
         self.pattern = pattern
         self.job = job
         self.queue = DispatchQueue.main
-
-        start()
-    }
-
-    public init(pattern: DatePattern, queue: DispatchQueue, hash: Int64 = 0, job: @escaping () -> Void) {
-        self.pattern = pattern
-        self.job = job
-        self.queue = queue
 
         start()
     }
@@ -44,7 +28,7 @@ public struct CronJob {
         }
 
         let interval = next.timeIntervalSinceNow
-        queue.asyncAfter(deadline: .now() + interval) { () -> () in
+        DispatchQueue.global().asyncAfter(deadline: .now() + interval) { () -> () in
             self.job()
             self.start()
         }
