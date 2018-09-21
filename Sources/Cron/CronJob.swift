@@ -4,6 +4,7 @@ public struct CronJob {
     public let pattern: DatePattern
     let job: () -> Void
     let queue: DispatchQueue
+    private var nextTime: Int = 0;
 
     public init(pattern: String, hash: Int64 = 0, job: @escaping () -> Void) throws {
         self.pattern = try DatePattern(pattern, hash: hash)
@@ -27,9 +28,13 @@ public struct CronJob {
             return
         }
 
+        self.nextTime = Int(next.timeIntervalSince1970);
         let interval = next.timeIntervalSinceNow
         DispatchQueue.global().asyncAfter(deadline: .now() + interval) { () -> () in
-            self.job()
+            if (self.nextTime <= Int(next.timeIntervalSince1970)) {
+                self.job()
+            }
+
             self.start()
         }
     }
