@@ -22,7 +22,7 @@ public struct CronJob {
         start()
     }
 
-    public func start() {
+    mutating public func start() {
         guard let next = pattern.next()?.date else {
             print("No next execution date could be determined")
             return
