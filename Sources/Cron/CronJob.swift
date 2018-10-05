@@ -2,6 +2,7 @@ import Foundation
 import Dispatch
 
 public class CronJob {
+    public static let TIMEZONE = TimeZone(identifier: "Europe/Moscow")!;
     public let pattern: DatePattern
     let job: () -> Void
     let queue: DispatchQueue

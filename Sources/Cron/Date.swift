@@ -20,7 +20,7 @@ public struct CronDate {
 public extension Cron.CronDate {
     init(date: Foundation.Date) {
         var calendar = Calendar.current
-        calendar.timeZone = TimeZone(identifier: "Europe/Moscow")!
+        calendar.timeZone = CronJob.TIMEZONE;
         self.year   = calendar.component(.year, from: date)
         self.month  = calendar.component(.month, from: date)
         self.day    = calendar.component(.day, from: date)
@@ -38,7 +38,7 @@ public extension Cron.CronDate {
     var date: Foundation.Date? {
         let d = NSDateComponents()
         d.calendar = NSCalendar.current
-        d.timeZone = TimeZone(identifier: "Europe/Moscow");
+        d.timeZone = CronJob.TIMEZONE;
         d.year   = self.year
         d.month  = self.month
         d.day    = self.day
